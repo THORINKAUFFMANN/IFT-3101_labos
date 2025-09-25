@@ -1,0 +1,13 @@
+Bonjour,
+
+Je m'appelle Marion Kauffmann, je suis actuellement en échange à l'Université Laval.
+Je suis en train de réaliser un master en technologie de l'information, dans mon école à Lyon en france.
+
+Je suis passionée d'astronomie et de robotique, c'est d'ailleurs un peu pour ça que j'ai choisi de faire de la programmation.
+Je suis très motivée pour le projet de session que vous proposez, et j'apprécie beaucoup pouvoir faire un projet avec autant de libertés et j'ai hâte d'en apprendre plus.
+
+J'ai dans mon ordinateur un chipset graphique Iris Xe-LP Graphics G7 96EU et un processeur Intel Core i7 11e, il peut supporter openGL 4.6
+
+Bonne journée à vous,
+
+Marion
