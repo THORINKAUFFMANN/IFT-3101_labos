@@ -7,6 +7,16 @@ void ofApp::setup(){
 	rotationX = 0.0f;
 	rotationY = 0.0f;
 	boxSize = 500.0f;
+	lightPlaneSize = 100.0f;
+	
+	// Configuration de la lumière
+	light.setPosition(0, -boxSize/2 + 30, 0);
+	light.setAmbientColor(ofColor(200, 200, 200));
+	light.setDiffuseColor(ofColor(255, 255, 255));
+	light.setSpecularColor(ofColor(255, 255, 255));
+	
+	// Activer l'éclairage
+	ofEnableLighting();
 }
 
 //--------------------------------------------------------------
@@ -21,6 +31,9 @@ void ofApp::draw(){
 	// Configuration de la caméra
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	// Activer la lumière
+	light.enable();
+	
 	ofPushMatrix();
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2, 0);
 	ofRotateXDeg(rotationX);
@@ -30,9 +43,12 @@ void ofApp::draw(){
 	
 	ofPopMatrix();
 	
+	// Désactiver la lumière pour l'affichage du texte
+	light.disable();
+	
 	// Affichage des instructions
 	ofSetColor(255);
-	ofDrawBitmapString("Boîte de Cornell", 10, 20);
+	ofDrawBitmapString("Boîte de Cornell avec éclairage", 10, 20);
 	ofDrawBitmapString("Utilisez la souris pour faire tourner la boîte", 10, 40);
 }
 
@@ -40,28 +56,53 @@ void ofApp::draw(){
 void ofApp::drawCornellBox() {
 	float halfSize = boxSize / 2.0f;
 	
+	// Créer un matériau pour les surfaces
+	ofMaterial material;
+	material.setSpecularColor(ofColor(200, 200, 200));
+	material.setShininess(32);
+	
 	// Mur gauche (Red)
 	ofSetColor(200, 0, 0);
+	material.setDiffuseColor(ofColor(200, 0, 0));
+	material.setAmbientColor(ofColor(100, 0, 0));
+	material.begin();
 	ofDrawBox(-halfSize, 0, 0, boxSize / 2, boxSize, boxSize);
+	material.end();
 	
 	// Mur droit (Green)
 	ofSetColor(0, 200, 0);
+	material.setDiffuseColor(ofColor(0, 200, 0));
+	material.setAmbientColor(ofColor(0, 100, 0));
+	material.begin();
 	ofDrawBox(halfSize, 0, 0, boxSize / 2, boxSize, boxSize);
+	material.end();
 	
 	// Mur arrière (White)
 	ofSetColor(200, 200, 200);
+	material.setDiffuseColor(ofColor(200, 200, 200));
+	material.setAmbientColor(ofColor(100, 100, 100));
+	material.begin();
 	ofDrawBox(0, 0, -halfSize, boxSize, boxSize, boxSize / 2);
-	
-	// Mur avant (partiellement ouvert)
-	// ofSetColor(180, 180, 180);
+	material.end();
 	
 	// Sol (White)
 	ofSetColor(200, 200, 200);
+	material.setDiffuseColor(ofColor(200, 200, 200));
+	material.setAmbientColor(ofColor(100, 100, 100));
+	material.begin();
 	ofDrawBox(0, halfSize, 0, boxSize, boxSize / 2, boxSize);
+	material.end();
 	
 	// Plafond (White)
 	ofSetColor(200, 200, 200);
+	material.setDiffuseColor(ofColor(200, 200, 200));
+	material.setAmbientColor(ofColor(100, 100, 100));
+	material.begin();
 	ofDrawBox(0, -halfSize, 0, boxSize, boxSize / 2, boxSize);
+	material.end();
+	
+	// Dessiner le plan lumineux dans le plafond
+	drawLightPlane();
 }
 
 //--------------------------------------------------------------
@@ -128,4 +169,33 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+//--------------------------------------------------------------
+void ofApp::drawLightPlane() {
+	float halfSize = boxSize / 2.0f;
+	
+	// Désactiver l'éclairage temporairement pour que le plan soit visible
+	light.disable();
+	
+	// Positionner le plan lumineux dans le plafond
+	ofPushMatrix();
+	ofTranslate(0, -halfSize + 2, 0);
+	
+	// Dessiner le plan lumineux en blanc/jaune clair
+	ofSetColor(255, 255, 200);
+	
+	// Créer un petit plan carré
+	ofBeginShape();
+	float half = lightPlaneSize / 2.0f;
+	ofVertex(-half, 0, -half);
+	ofVertex(half, 0, -half);
+	ofVertex(half, 0, half);
+	ofVertex(-half, 0, half);
+	ofEndShape(true);
+	
+	ofPopMatrix();
+	
+	// Réactiver l'éclairage
+	light.enable();
 }

@@ -25,6 +25,9 @@ class ofApp : public ofBaseApp{
 		
 	private:
 		void drawCornellBox();
+		void drawLightPlane();
 		float rotationX, rotationY;
 		float boxSize;
+		ofLight light;
+		float lightPlaneSize;
 };
