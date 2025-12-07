@@ -10,21 +10,6 @@ class ofApp : public ofBaseApp{
 		void draw() override;
 		void exit() override;
 
-		// Camera and scene properties
-		ofEasyCam camera;
-		ofBoxPrimitive box;
-		ofSpherePrimitive sphere;
-		ofCylinderPrimitive cylinder;
-		ofConePrimitive cone;
-		ofShader shader;
-		
-		// Camera movement properties
-		glm::vec3 cameraPosition;
-		float cameraMoveSpeed;
-		map<int, bool> keyStates;
-		
-
-
 		void keyPressed(int key) override;
 		void keyReleased(int key) override;
 		void mouseMoved(int x, int y ) override;
@@ -37,5 +22,21 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h) override;
 		void dragEvent(ofDragInfo dragInfo) override;
 		void gotMessage(ofMessage msg) override;
+
+		// Image and filter related members
+		ofImage originalImage;    // Original loaded image
+		ofImage filteredImage;    // Image after applying filters
+		int currentFilter;        // Current selected filter
+		float brightness;         // Brightness adjustment value
+
+		// Filter functions
+		void applyGrayscale();
+		void applyBlur();
+		void applyEdgeDetection();
+		void applyBrightnessAdjustment();
+		void applyColorInversion();
 		
+	private:
+		// Helper functions for convolution
+		void applyConvolution(const vector<float>& kernel, int kernelSize);
 };

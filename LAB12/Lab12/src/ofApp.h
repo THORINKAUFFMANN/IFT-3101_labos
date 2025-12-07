@@ -10,21 +10,6 @@ class ofApp : public ofBaseApp{
 		void draw() override;
 		void exit() override;
 
-		// Camera and scene properties
-		ofEasyCam camera;
-		ofBoxPrimitive box;
-		ofSpherePrimitive sphere;
-		ofCylinderPrimitive cylinder;
-		ofConePrimitive cone;
-		ofShader shader;
-		
-		// Camera movement properties
-		glm::vec3 cameraPosition;
-		float cameraMoveSpeed;
-		map<int, bool> keyStates;
-		
-
-
 		void keyPressed(int key) override;
 		void keyReleased(int key) override;
 		void mouseMoved(int x, int y ) override;
@@ -38,4 +23,8 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo) override;
 		void gotMessage(ofMessage msg) override;
 		
+	private:
+		void drawCornellBox();
+		float rotationX, rotationY;
+		float boxSize;
 };

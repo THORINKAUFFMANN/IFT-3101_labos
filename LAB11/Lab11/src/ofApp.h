@@ -10,21 +10,6 @@ class ofApp : public ofBaseApp{
 		void draw() override;
 		void exit() override;
 
-		// Camera and scene properties
-		ofEasyCam camera;
-		ofBoxPrimitive box;
-		ofSpherePrimitive sphere;
-		ofCylinderPrimitive cylinder;
-		ofConePrimitive cone;
-		ofShader shader;
-		
-		// Camera movement properties
-		glm::vec3 cameraPosition;
-		float cameraMoveSpeed;
-		map<int, bool> keyStates;
-		
-
-
 		void keyPressed(int key) override;
 		void keyReleased(int key) override;
 		void mouseMoved(int x, int y ) override;
@@ -37,5 +22,30 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h) override;
 		void dragEvent(ofDragInfo dragInfo) override;
 		void gotMessage(ofMessage msg) override;
+		
+	private:
+		// Mesh pour la surface avec déformation de relief
+		ofMesh reliefMesh;
+		
+		// Texture de heightmap
+		ofImage heightMapTexture;
+		
+		// Texture couleur
+		ofImage colorTexture;
+		
+		// Variables de contrôle
+		glm::vec3 lightPosition;
+		float bumpIntensity;
+		float rotation;
+		float rotationX;
+		float rotationY;
+		float rotationZ;
+		int meshResolution;
+		bool useColorTexture;
+		
+		// Méthodes utilitaires
+		void generateReliefMesh();
+		void generateHeightMapTexture();
+		void loadColorTexture();
 		
 };
