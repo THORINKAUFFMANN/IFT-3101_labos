@@ -6,7 +6,7 @@
 ################################################################################
 # OF ROOT
 #   The location of your root openFrameworks installation
-#       (default) OF_ROOT = ../../.. 
+#       (default) OF_ROOT = /home/kauffmann/openFrameworks
 ################################################################################
 OF_ROOT = /home/kauffmann/openFrameworks
 
